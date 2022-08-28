@@ -1,15 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import HistoryModel from './history.model';
 
 @Injectable()
+
+
 export class HistoryService {
-    saveHistory(data):object{
-        return data.key
+    private historyModel;
+    constructor(){
+        this.historyModel = new HistoryModel();
 
-
-        return null;
     }
 
-    getHistory(): object {
-        return  { msg: 'your history has been fetched'}
+    saveHistory(data: any){
+        this.historyModel.saveHistory(data.key.toUpperCase())
+       
+    }
+
+    getHistory(): string[] {
+       return this.historyModel.getDataList();
     }
 }
