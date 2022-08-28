@@ -2,11 +2,14 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class HistoryService {
-    saveHistory():object{
-        return {msg: 'your debug has been saved'}
+    saveHistory(data):object{
+        return data.key
+
+
+        return null;
     }
 
     getHistory(): object {
-        return {msg: 'your history has been fetched'}
+        return  { msg: 'your history has been fetched'}
     }
 }
