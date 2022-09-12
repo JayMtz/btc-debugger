@@ -5,6 +5,7 @@ import HistoryModel from './history.model';
 
 
 export class HistoryService {
+    
     private historyModel;
     constructor(){
         this.historyModel = new HistoryModel();

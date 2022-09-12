@@ -1,4 +1,6 @@
 import { Body, Controller, Get, Header, Post, Req } from '@nestjs/common';
+import { accessSync } from 'fs';
+import { async } from 'rxjs';
 import { HistoryService } from './history.service';
 
 @Controller('history')
@@ -12,7 +14,7 @@ export class HistoryController {
     }
 
     @Get('getHistory')
-    getHistory(){
+    async getHistory(){
         return this.historyService.getHistory();
     }
 }
