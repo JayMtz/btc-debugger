@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Header, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Header, Headers, Post, Req } from '@nestjs/common';
 import { metadata } from 'cassandra-driver';
 import { accessSync } from 'fs';
 import { stringify } from 'querystring';
@@ -16,6 +16,9 @@ export class HistoryController {
     }
 
     @Get('getHistory')
+    @Header('Access-Control-Allow-Origin', '*')
+    @Header('Access-Control-Allow-Headers', 'Content-Type')
+    @Header('Access-Control-Content-Type', 'application/json;charset=utf8')
     async getHistory(){
         return this.historyService.getHistory();
     }
