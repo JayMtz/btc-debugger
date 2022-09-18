@@ -1,4 +1,5 @@
 import { query } from "express";
+import { stringify } from "querystring";
 
 const cassandra = require('cassandra-driver');
 const async = require('async');
@@ -11,11 +12,13 @@ export default class HistoryModel{
     }
     
 
-    saveHistory(){
+    saveHistory(data){
       let id = cassandra.types.Uuid.random();
       let time = cassandra.types.TimeUuid.now();
       let date = time.getDate();
       let client = this.client
+      let metadataString = data.metadata;
+      let type = data.type;
       let query = "INSERT INTO block.metadata (entry_id,metadata, type, time) VALUES (?,?,?,?)"
 
       return client.connect()
@@ -23,13 +26,12 @@ export default class HistoryModel{
         console.log('Connected to cluster with %d host(s): %j', client.hosts.length, client.hosts.keys());
         console.log('Keyspaces: %j', Object.keys(client.metadata.keyspaces));
         console.log('Shutting down');
-        return client.execute(query, [id, 'test1', 'header', date], {prepare: true});
+        return client.execute(query, [id, metadataString, type, date], {prepare: true});
       })
       
     }
     
     getDataList(){
-        //return this.datalist;
         let client = this.client
         return client.connect()
         .then(function () {

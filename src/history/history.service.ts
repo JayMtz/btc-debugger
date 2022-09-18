@@ -13,7 +13,7 @@ export class HistoryService {
     }
 
     saveHistory(data: any){
-        this.historyModel.saveHistory()
+        this.historyModel.saveHistory(data)
        
     }
 
